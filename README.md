@@ -1,1 +1,1 @@
-# jot-mern
+# JOT
