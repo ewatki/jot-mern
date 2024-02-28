@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 
 let dbConnection;
-let uri = 'mongodb+srv://ewatkiga:ewatkigapw@cluster0.6caz9sh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+let uri = process.env.MONGO_URI;
 
 module.exports = {
   connectToDb: (cb) => {
