@@ -3,7 +3,7 @@ const Timeline = require('../models/Timeline')
 const User = require('../models/User')
 
 // @desc   Get timelines
-// @route  GET /api/timelines
+// @route  GET /api/profile/timelines
 // @access Private
 const getTimelines = asyncHandler(async (req, res) => {
     const timelines = await Timeline.find({ user: req.user.id });
@@ -12,7 +12,7 @@ const getTimelines = asyncHandler(async (req, res) => {
 })
 
 // @desc   Create a new timeline
-// @route  POST /api/timelines
+// @route  POST /api/profile/timelines
 // @access Private
 const setTimeline = asyncHandler(async (req, res) => {
     if (!req.body.periodType) {
@@ -22,6 +22,7 @@ const setTimeline = asyncHandler(async (req, res) => {
 
     const timeline = await Timeline.create({
         periodType: req.body.periodType,
+        periods: [],
         user: req.user.id
     })
 
@@ -29,10 +30,10 @@ const setTimeline = asyncHandler(async (req, res) => {
 })
 
 // @desc   Update a user's timeline
-// @route  PUT /api/timelines/:id
+// @route  PUT /api/profile/timelines/:timelineId
 // @access Private
 const updateTimeline = asyncHandler(async (req, res) => {
-    const timeline = await Timeline.findById(req.params.id)
+    const timeline = await Timeline.findById(req.params.timelineId)
 
     if (!timeline) {
         res.status(400)
@@ -52,7 +53,7 @@ const updateTimeline = asyncHandler(async (req, res) => {
         throw new Error('User not authorized')
     }
 
-    const updatedTimeline = await Timeline.findByIdAndUpdate(req.params.id, req.body, {
+    const updatedTimeline = await Timeline.findByIdAndUpdate(req.params.timelineId, req.body, {
         new: true,
     })
 
@@ -60,10 +61,10 @@ const updateTimeline = asyncHandler(async (req, res) => {
 })
 
 // @desc   Delete a user's timeline
-// @route  DELETE /api/timelines/:id
+// @route  DELETT /api/profile/timelines/:timelineId
 // @access Private
 const deleteTimeline = asyncHandler(async (req, res) => {
-    const timeline = await Timeline.findById(req.params.id)
+    const timeline = await Timeline.findById(req.params.timelineId)
 
     if (!timeline) {
         res.status(400)
@@ -83,10 +84,10 @@ const deleteTimeline = asyncHandler(async (req, res) => {
         throw new Error('User not authorized')
     }
 
-    await Timeline.findByIdAndDelete(req.params.id);
-
-    res.status(200).json({ id: req.params.id })})
-
+    await Timeline.findByIdAndDelete(req.params.timelineId);
+    
+    res.status(200).json({ id: req.params.timelineId })
+})
 
 module.exports = {
     getTimelines,
