@@ -2,7 +2,7 @@
 const express = require("express");
 const cors = require("cors");
 const userRoutes = require('./routes/userRoutes');
-const timelineRoutes = require('./routes/timelineRoutes');
+const profileRoutes = require('./routes/profileRoutes');
 
 const app = express();
 
@@ -11,8 +11,10 @@ const port = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.use('/api/users', userRoutes);
-app.use('/api/timelines', timelineRoutes);
+app.use('/api/profile', profileRoutes);
 
 
 // Get MongoDB driver connection
