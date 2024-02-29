@@ -1,20 +1,13 @@
-// Protected routes that requires authentication
 const express = require('express');
 const { 
   registerUser, 
   loginUser, 
-  getProfile
 } = require('../controllers/userController')
-const { 
-  requireAuth 
-} = require('../middleware/authMiddleware.js');
 
-const router = express.Router();
+const userRouter = express.Router();
 
 // users/
-router.post('/', registerUser)
-router.post('/login', loginUser)
-router.get('/profile', requireAuth, getProfile)
+userRouter.post('/register', registerUser)
+userRouter.post('/login', loginUser)
 
-
-module.exports = router;
+module.exports = userRouter;
