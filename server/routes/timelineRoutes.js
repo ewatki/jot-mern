@@ -9,11 +9,15 @@ const {
 const { 
     requireAuth 
 } = require('../middleware/authMiddleware');
+const periodRoutes = require('./periodRoutes');
 
-const router = express.Router();
+const timelineRouter = express.Router();
 
-// timelines/
-router.route('/').get(requireAuth, getTimelines).post(requireAuth, setTimeline)
-router.route('/:id').delete(requireAuth, deleteTimeline).put(requireAuth, updateTimeline)
+// profile/timelines/
+timelineRouter.route('/').get(requireAuth, getTimelines).post(requireAuth, setTimeline)
+timelineRouter.route('/:timelineId').delete(requireAuth, deleteTimeline).put(requireAuth, updateTimeline)
 
-module.exports = router;
+// profile/timelines/:timelineId/periods
+timelineRouter.use('/:timelineId/periods', periodRoutes);
+
+module.exports = timelineRouter;
