@@ -39,6 +39,7 @@ const registerUser = asyncHandler(async (req, res) => {
             email: user.email,
             token: generateToken(user._id)
         })
+        res.redirect('/api/profile');
     } else {
         res.status(400)
         throw new Error('Invalid user data')
@@ -61,23 +62,11 @@ const loginUser = asyncHandler(async (req, res) => {
             email: user.email,
             token: generateToken(user._id),
         })
+        res.redirect('/api/profile');
     } else {
         res.status(400)
         throw new Error('Invalid credentials')
     }
-})
-
-// @desc   Get user data
-// @route  GET /api/users/me
-// @access Private
-const getProfile = asyncHandler(async (req, res) => {
-    const { _id, username, email } = await User.findById(req.user.id)
-
-    res.status(200).json({
-        id: _id,
-        username,
-        email
-    })
 })
 
 // Generate JWT 
@@ -90,5 +79,4 @@ const generateToken = (id) => {
 module.exports = {
     registerUser,
     loginUser,
-    getProfile,
 }
