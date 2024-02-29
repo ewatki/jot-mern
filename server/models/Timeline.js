@@ -16,13 +16,7 @@ const timelineSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId, 
             ref: 'Period' 
         }
-    ],
-    comments: [
-        { 
-            type: mongoose.Schema.Types.ObjectId, 
-            ref: 'Comment' 
-        }
-    ],
+    ]
 },
 {
     timestamps: true
